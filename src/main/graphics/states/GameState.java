@@ -2,19 +2,25 @@ package main.graphics.states;
 
 import java.awt.Graphics;
 
-import main.game.terrain.Tiles;
+import main.game.terrain.Map;
 
 public class GameState extends State {
 
+	private Map map;
+
+	public GameState() {
+		this.map = new Map();
+		this.map.initFrom("res/maps/1-1.map");
+	}
+
 	@Override
 	public void render(Graphics g) {
-		Tiles.black.renderAt(g, 0, 0);
-		Tiles.grass.renderAt(g, 32, 0);
-		Tiles.grassRock.renderAt(g, 0, 32);
+		this.map.render(g);
 	}
 
 	@Override
 	public void update() {
+		this.map.update();
 	}
 
 }

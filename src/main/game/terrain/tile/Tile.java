@@ -2,6 +2,7 @@ package main.game.terrain.tile;
 
 import java.awt.Graphics;
 
+import main.game.terrain.Tiles;
 import main.graphics.textures.Sprite;
 
 public class Tile {
@@ -16,6 +17,8 @@ public class Tile {
 		this.id = id;
 		this.sprite = sprite;
 		this.isSolid = isSolid;
+		
+		Tiles.register(this);
 	}
 
 	/** Returns this Tile's ID */
