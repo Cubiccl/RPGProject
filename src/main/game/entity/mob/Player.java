@@ -8,28 +8,33 @@ import main.graphics.textures.Sprite;
 public class Player extends Mob {
 
 	public Player(float x, float y) {
-		super(5, 1.0f, x, y, Sprite.player);
+		super(5, 1.6f, x, y, Sprite.playerDown);
+		this.setMovementSprites(Sprite.playerDown, Sprite.playerUp,
+				Sprite.playerLeft, Sprite.playerRight);
 	}
 
 	@Override
 	public void update() {
+		super.update();
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_UP))
-			setYMotion(-1);
-		else if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedAbsolute(KeyEvent.VK_UP)) {
+			this.yMotion = -1;
+			if (RPGProject.getGame().getKeyManager()
+					.isKeyPressedAbsolute(KeyEvent.VK_DOWN))
+				this.yMotion = 0;
+		} else if (RPGProject.getGame().getKeyManager()
 				.isKeyPressedAbsolute(KeyEvent.VK_DOWN))
-			setYMotion(1);
-		else
-			setYMotion(0);
+			this.yMotion = 1;
+
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_RIGHT))
-			setXMotion(1);
-		else if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedAbsolute(KeyEvent.VK_RIGHT)) {
+			this.xMotion = 1;
+			if (RPGProject.getGame().getKeyManager()
+					.isKeyPressedAbsolute(KeyEvent.VK_LEFT))
+				this.xMotion = 0;
+		} else if (RPGProject.getGame().getKeyManager()
 				.isKeyPressedAbsolute(KeyEvent.VK_LEFT))
-			setXMotion(-1);
-		else
-			setXMotion(0);
+			this.xMotion = -1;
 
 	}
-
 }
