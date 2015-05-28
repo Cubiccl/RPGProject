@@ -17,7 +17,7 @@ public class Map {
 	 * 
 	 * @param tile
 	 *            the tile id you want on the map
-	 * */
+	 */
 	public Map(short tile) {
 		this.tiles = new short[DEFAULT_SIZE][DEFAULT_SIZE];
 		for (int i = 0; i < DEFAULT_SIZE; i++) {

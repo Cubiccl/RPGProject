@@ -4,16 +4,14 @@ import java.awt.Canvas;
 
 import javax.swing.JFrame;
 
-public class Display extends JFrame
-{
+public class Display extends JFrame {
 	private static final long serialVersionUID = 1L;
 	/** Default size for the frame */
 	public static final int WIDTH = 600, HEIGHT = 400;
 
 	private Canvas canvas;
 
-	public Display()
-	{
+	public Display() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(WIDTH, HEIGHT);
 		this.setLocationRelativeTo(null);
@@ -30,8 +28,7 @@ public class Display extends JFrame
 		this.pack();
 	}
 
-	public Canvas getCanvas()
-	{
+	public Canvas getCanvas() {
 		return this.canvas;
 	}
 

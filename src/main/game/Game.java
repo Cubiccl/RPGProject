@@ -7,8 +7,7 @@ import main.game.input.KeyInput;
 import main.graphics.Display;
 import main.graphics.states.StateManager;
 
-public class Game implements Runnable
-{
+public class Game implements Runnable {
 	/** The JFrame to display the game */
 	private Display frame;
 	/** The current FPS the game displays */
@@ -23,38 +22,33 @@ public class Game implements Runnable
 	/** True if the game is running. */
 	private boolean isRunning;
 
-	public Game()
-	{
+	public Game() {
 		this.isRunning = false;
 	}
 
 	/** Called to run the game */
 	@Override
-	public void run()
-	{
+	public void run() {
 		this.init();
 
 		int fps = 60, ticks = 0;
 		double timePerTick = 1000000000 / fps, delta = 0;
 		long now, lastTime = System.nanoTime(), timer = 0;
 
-		while (this.isRunning)
-		{
+		while (this.isRunning) {
 			now = System.nanoTime();
 			delta += (now - lastTime) / timePerTick;
 			timer += now - lastTime;
 			lastTime = now;
 
-			if (delta >= 1)
-			{
+			if (delta >= 1) {
 				this.update();
 				this.render();
 				delta--;
 				ticks++;
 			}
 
-			if (timer >= 1000000000)
-			{
+			if (timer >= 1000000000) {
 				System.out.println("FPS : " + ticks);
 				this.currentFPS = ticks;
 				ticks = 0;
@@ -66,11 +60,11 @@ public class Game implements Runnable
 	}
 
 	/** Called to draw the game onto the screen */
-	private void render()
-	{
+	private void render() {
 		BufferStrategy bs = this.frame.getCanvas().getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		g.clearRect(0, 0, this.frame.getCanvas().getWidth(), this.frame.getCanvas().getWidth());
+		g.clearRect(0, 0, this.frame.getCanvas().getWidth(), this.frame
+				.getCanvas().getWidth());
 
 		this.stateManager.render(g);
 
@@ -79,14 +73,12 @@ public class Game implements Runnable
 	}
 
 	/** Called to update the game */
-	private void update()
-	{
+	private void update() {
 		this.stateManager.update();
 	}
 
 	/** Initializes the game */
-	private void init()
-	{
+	private void init() {
 		this.frame = new Display();
 		this.frame.setVisible(true);
 		this.frame.getCanvas().createBufferStrategy(3);
@@ -98,9 +90,9 @@ public class Game implements Runnable
 	}
 
 	/** Called to start the game */
-	public void start()
-	{
-		if (this.isRunning) return;
+	public void start() {
+		if (this.isRunning)
+			return;
 
 		this.isRunning = true;
 		this.thread = new Thread(this);
@@ -108,15 +100,13 @@ public class Game implements Runnable
 	}
 
 	/** Called to stop the game */
-	public void stop()
-	{
-		if (!this.isRunning) return;
+	public void stop() {
+		if (!this.isRunning)
+			return;
 		this.isRunning = false;
-		try
-		{
+		try {
 			this.thread.join();
-		} catch (InterruptedException e)
-		{
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
