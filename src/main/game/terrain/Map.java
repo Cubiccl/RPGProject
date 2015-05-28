@@ -9,9 +9,9 @@ public class Map {
 	/** The tiles of the map */
 	private short[][] tiles;
 	/** The default size of the map */
-	private final short DEFAULT_SIZE = 255;
+	private final int DEFAULT_SIZE = 255;
 	/** The actual size of the map */
-	private short actual_size;
+	private int actual_size;
 
 	/** Default constructor of an empty map */
 	public Map() {
@@ -36,12 +36,12 @@ public class Map {
 	}
 
 	/** Gets the tile id at the specified value */
-	public short getTileAt(short x, short y) {
+	public short getTileAt(int x, int y) {
 		return this.tiles[x][y];
 	}
 
 	/** Gets the size of the map (it's a square) */
-	public short getSize() {
+	public int getSize() {
 		return this.actual_size;
 	}
 
@@ -55,7 +55,7 @@ public class Map {
 	 *            the id of the tile you want.
 	 * 
 	 * */
-	public void resizeto(short newsize, short tileId) {
+	public void resizeTo(int newsize, short tileId) {
 		if (this.actual_size == newsize)
 			return;
 		this.actual_size = newsize;
@@ -83,16 +83,16 @@ public class Map {
 	}
 
 	/**
-	 * Resizes the map to the desired dimentions. Set default tiles to new ones.
+	 * Resizes the map to the desired dimension. Set default tiles to new ones.
 	 * 
-	 * @throws dimensinoNotSquarredExeption
+	 * @throws dimensionNotSquarredExeption
 	 *             make sure your dimension object is a square, cause the map is
 	 *             always a square.
 	 * */
 	public void resizeto(Dimension d) throws DimensinoNotSquarredException{
 		if(d.height !=d.width)
 			throw new DimensinoNotSquarredException(d);
-		this.resizeto((short) d.height,(short)0);
+		this.resizeTo((short) d.height,(short)0);
 		
 	}
 
@@ -104,6 +104,6 @@ public class Map {
 	 * 
 	 * */
 	public void resizeto(short newsize) {
-		this.resizeto(newsize, (short) 0);
+		this.resizeTo(newsize, (short) 0);
 	}
 }
