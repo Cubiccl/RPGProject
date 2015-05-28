@@ -1,14 +1,22 @@
 package main.game;
 
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import main.game.input.KeyInput;
 import main.graphics.Display;
+import main.graphics.states.StateManager;
 
 public class Game implements Runnable
 {
 	/** The JFrame to display the game */
 	private Display frame;
+	/** The current FPS the game displays */
 	public int currentFPS;
+	/** Manages the keyboard inputs */
 	private KeyInput keyManager;
+	/** Manages the game states */
+	private StateManager stateManager;
 
 	/** The thread running the game itself. */
 	private Thread thread;
@@ -26,7 +34,7 @@ public class Game implements Runnable
 	{
 		this.init();
 
-		int fps = 10, ticks = 0;
+		int fps = 60, ticks = 0;
 		double timePerTick = 1000000000 / fps, delta = 0;
 		long now, lastTime = System.nanoTime(), timer = 0;
 
@@ -59,20 +67,34 @@ public class Game implements Runnable
 
 	/** Called to draw the game onto the screen */
 	private void render()
-	{}
+	{
+		BufferStrategy bs = this.frame.getCanvas().getBufferStrategy();
+		Graphics g = bs.getDrawGraphics();
+		g.clearRect(0, 0, this.frame.getCanvas().getWidth(), this.frame.getCanvas().getWidth());
+
+		this.stateManager.render(g);
+
+		bs.show();
+		g.dispose();
+	}
 
 	/** Called to update the game */
 	private void update()
-	{}
+	{
+		this.stateManager.update();
+	}
 
 	/** Initializes the game */
 	private void init()
 	{
 		this.frame = new Display();
 		this.frame.setVisible(true);
+		this.frame.getCanvas().createBufferStrategy(3);
 
 		this.keyManager = new KeyInput();
 		this.frame.addKeyListener(this.keyManager);
+
+		this.stateManager = new StateManager(StateManager.GAME);
 	}
 
 	/** Called to start the game */
