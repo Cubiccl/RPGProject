@@ -94,7 +94,7 @@ public class Game implements Runnable
 		this.keyManager = new KeyInput();
 		this.frame.addKeyListener(this.keyManager);
 
-		this.stateManager = new StateManager(StateManager.GAME);
+		this.stateManager = new StateManager(StateManager.MENU);
 	}
 
 	/** Called to start the game */
