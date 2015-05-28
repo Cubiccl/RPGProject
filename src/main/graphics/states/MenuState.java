@@ -2,10 +2,15 @@ package main.graphics.states;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
+import main.graphics.textures.FontBuilder;
 import main.RPGProject;
 
 public class MenuState extends State {
@@ -28,6 +33,25 @@ public class MenuState extends State {
 		int height = RPGProject.getWindow().getHeight();
 
 		g.setFont(FONT);
+		
+		
+		try {
+			g.setFont(main.graphics.textures.FontBuilder.createfont("res/Ruritania.ttf"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		FontMetrics metrics = g.getFontMetrics();
 
 		g.setColor(BACKGROUND);
