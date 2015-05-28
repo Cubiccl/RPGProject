@@ -1,20 +1,82 @@
 package main.graphics.states;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
-import main.graphics.Display;
+import main.RPGProject;
 
 public class MenuState extends State {
 
+	private static final Color DEFAULT = Color.WHITE, SELECTED = Color.RED,
+			BACKGROUND = Color.BLACK;
+	private static final String START = "Start this awesome game !",
+			QUIT = "Quit";
+	private static final Font FONT = new Font("Impact", Font.PLAIN, 30);
+	private int selected;
+
+	public MenuState() {
+		this.selected = 0;
+	}
+
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillOval(0, 0, Display.WIDTH, Display.HEIGHT);
+
+		int width = RPGProject.getWindow().getWidth();
+		int height = RPGProject.getWindow().getHeight();
+
+		g.setFont(FONT);
+		FontMetrics metrics = g.getFontMetrics();
+
+		g.setColor(BACKGROUND);
+		g.fillRect(0, 0, width, height);
+
+		g.setColor(DEFAULT);
+		if (this.selected == 0)
+			g.setColor(SELECTED);
+		g.drawString(START, width / 2 - metrics.stringWidth(START) / 2,
+				height / 3);
+
+		g.setColor(DEFAULT);
+		if (this.selected == 1)
+			g.setColor(SELECTED);
+		g.drawString(QUIT, width / 2 - metrics.stringWidth(QUIT) / 2,
+				height * 2 / 3);
 	}
 
 	@Override
 	public void update() {
+
+		if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedInstant(KeyEvent.VK_UP))
+			this.selected--;
+		if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedInstant(KeyEvent.VK_DOWN))
+			this.selected++;
+
+		if (this.selected > 1)
+			this.selected = 1;
+		if (this.selected < 0)
+			this.selected = 0;
+
+		if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedInstant(KeyEvent.VK_ENTER)) {
+			switch (this.selected) {
+			case 0:
+				RPGProject.getGame().setState(StateManager.GAME);
+				break;
+
+			case 1:
+				System.exit(0);
+				break;
+
+			default:
+				break;
+			}
+		}
+
 	}
 
 }

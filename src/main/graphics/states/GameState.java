@@ -1,16 +1,16 @@
 package main.graphics.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
-import main.graphics.Display;
+import main.game.terrain.Tiles;
 
 public class GameState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillOval(0, 0, Display.WIDTH, Display.HEIGHT);
+		Tiles.black.renderAt(g, 0, 0);
+		Tiles.grass.renderAt(g, 32, 0);
+		Tiles.grassRock.renderAt(g, 0, 32);
 	}
 
 	@Override

@@ -111,4 +111,16 @@ public class Game implements Runnable {
 		}
 	}
 
+	public Display getWindow() {
+		return this.frame;
+	}
+
+	public KeyInput getKeyManager() {
+		return this.keyManager;
+	}
+
+	public void setState(byte state) {
+		this.stateManager.setState(state);
+	}
+
 }

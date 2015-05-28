@@ -15,8 +15,7 @@ public class Map {
 
 	/** Default constructor of an empty map */
 	public Map() {
-		this.tiles = new short[DEFAULT_SIZE][DEFAULT_SIZE];
-		this.actual_size = DEFAULT_SIZE;
+		this(Tiles.black.getId());
 	}
 
 	/**
