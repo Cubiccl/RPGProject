@@ -13,6 +13,7 @@ public class Tiles {
 	public static Tile grassRock = new TileObject((short) 100, Sprite.grass, Sprite.rock2, true);
 	
 	public static Tile getTileFromId(short id) {
+		System.out.println(id);
 		return tiles[id];
 	}
 

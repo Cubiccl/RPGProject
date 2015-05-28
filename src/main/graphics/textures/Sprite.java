@@ -8,7 +8,7 @@ public enum Sprite {
 	grass("/textures/tiles/grass1.png"),
 	rock1("/textures/tiles/rock1.png"),
 	rock2("/textures/tiles/rock2.png"),
-	player("/texture/entity/player/charF.png");
+	player("/textures/entity/player/charF.png");
 
 	private BufferedImage img;
 

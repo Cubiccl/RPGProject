@@ -2,8 +2,11 @@ package main.game.terrain;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import main.Utils;
+import main.game.entity.Entity;
+import main.game.entity.mob.Player;
 import main.game.terrain.tile.Tile;
 import exeptions.DimensinoNotSquarredException;
 
@@ -17,6 +20,8 @@ public class Map {
 	private int actual_size;
 	/** The spawning Coordinates for this map */
 	private int spawnX, spawnY;
+	/**	The Entities on this map */
+	private ArrayList<Entity> entities;
 
 	/** Default constructor of an empty map */
 	public Map() {
@@ -30,6 +35,7 @@ public class Map {
 	 *            the tile id you want on the map
 	 */
 	public Map(short tile) {
+		this.entities = new ArrayList<Entity>();
 		this.tiles = new short[DEFAULT_SIZE][DEFAULT_SIZE];
 		for (int i = 0; i < DEFAULT_SIZE; i++) {
 			for (int j = 0; j < DEFAULT_SIZE; j++) {
@@ -53,6 +59,8 @@ public class Map {
 						+ this.actual_size * y + x]);
 			}
 		}
+		
+		this.registerEntity(new Player(this.spawnX, this.spawnY));
 	}
 
 	/** Gets the tile id at the specified value */
@@ -136,7 +144,9 @@ public class Map {
 	}
 
 	public void update() {
-
+		for (int i = 0; i < this.entities.size(); i++) {
+			this.entities.get(i).update();
+		}
 	}
 
 	public void render(Graphics g) {
@@ -146,5 +156,18 @@ public class Map {
 						y * Tile.HEIGHT);
 			}
 		}
+		for (int i = 0; i < this.entities.size(); i++) {
+			this.entities.get(i).render(g);
+		}
 	}
+	
+	public void registerEntity(Entity entity) {
+		if (!this.entities.contains(entity)) this.entities.add(entity);
+	}
+	
+	public void removeEntity(Entity entity) {
+		if (this.entities.contains(entity)) this.entities.remove(entity);
+	}
+	
+	
 }
