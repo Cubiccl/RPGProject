@@ -1,16 +1,18 @@
 package main.game.terrain;
 
+import java.awt.Dimension;
+
+import exeptions.DimensinoNotSquarredException;
+
 public class Map {
 
 	/** The tiles of the map */
 	private short[][] tiles;
-
-	/**The default size of the map*/
+	/** The default size of the map */
 	private final short DEFAULT_SIZE = 255;
-
-	/**The actual size of the map*/
+	/** The actual size of the map */
 	private short actual_size;
-	
+
 	/** Default constructor of an empty map */
 	public Map() {
 		this.tiles = new short[DEFAULT_SIZE][DEFAULT_SIZE];
@@ -32,16 +34,76 @@ public class Map {
 		}
 		this.actual_size = DEFAULT_SIZE;
 	}
-	
-	/**Gets the tile id at the specified value*/
-	public short getTileAt(short x, short y){
+
+	/** Gets the tile id at the specified value */
+	public short getTileAt(short x, short y) {
 		return this.tiles[x][y];
 	}
-	
-	/**Gets the size of the map (it's a square)*/
-	public short getSize(){
+
+	/** Gets the size of the map (it's a square) */
+	public short getSize() {
 		return this.actual_size;
 	}
-	
 
+	/**
+	 * resizes the map to the desired value. Use tile 0 as default for more
+	 * optimized usage.
+	 * 
+	 * @param newsize
+	 *            the new size
+	 * @param tile
+	 *            the id of the tile you want.
+	 * 
+	 * */
+	public void resizeto(short newsize, short tileId) {
+		if (this.actual_size == newsize)
+			return;
+		this.actual_size = newsize;
+		short[][] newgrid = new short[newsize][newsize];
+		if (newsize > this.actual_size) {
+			if (tileId != 0)
+				for (int i = 0; i < newsize; i++) {
+					for (int j = 0; j < newsize; j++) {
+						newgrid[i][j] = tileId;
+					}
+				}
+			for (int i = 0; i < this.actual_size; i++) {
+				for (int j = 0; j < this.actual_size; j++) {
+					newgrid[i][j] = this.tiles[i][j];
+				}
+			}
+		} else {
+			for (int i = 0; i < newsize; i++) {
+				for (int j = 0; j < newsize; j++) {
+					newgrid[i][j] = this.tiles[i][j];
+				}
+			}
+		}
+		this.tiles = newgrid;
+	}
+
+	/**
+	 * Resizes the map to the desired dimentions. Set default tiles to new ones.
+	 * 
+	 * @throws dimensinoNotSquarredExeption
+	 *             make sure your dimension object is a square, cause the map is
+	 *             always a square.
+	 * */
+	public void resizeto(Dimension d) throws DimensinoNotSquarredException{
+		if(d.height !=d.width)
+			throw new DimensinoNotSquarredException(d);
+		this.resizeto((short) d.height,(short)0);
+		
+	}
+
+	/**
+	 * resizes the map to the desired value. Set 0 tiles to new ones.
+	 * 
+	 * @param newsize
+	 *            the new size
+	 * 
+	 * */
+	public void resizeto(short newsize) {
+		this.resizeto(newsize, (short) 0);
+	}
 }
