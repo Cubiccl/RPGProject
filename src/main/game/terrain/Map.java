@@ -1,7 +1,10 @@
 package main.game.terrain;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 
+import main.Utils;
+import main.game.terrain.tile.Tile;
 import exeptions.DimensinoNotSquarredException;
 
 public class Map {
@@ -12,6 +15,8 @@ public class Map {
 	private final int DEFAULT_SIZE = 255;
 	/** The actual size of the map */
 	private int actual_size;
+	/** The spawning Coordinates for this map */
+	private int spawnX, spawnY;
 
 	/** Default constructor of an empty map */
 	public Map() {
@@ -32,6 +37,22 @@ public class Map {
 			}
 		}
 		this.actual_size = DEFAULT_SIZE;
+		this.spawnX = 0;
+		this.spawnY = 0;
+	}
+
+	public void initFrom(String filePath) {
+		String data = Utils.readFile(filePath);
+		String[] elements = data.split("\\s+");
+		this.resizeTo((short) Utils.parseInt(elements[0]));
+		this.spawnX = Utils.parseInt(elements[1]);
+		this.spawnY = Utils.parseInt(elements[2]);
+		for (int x = 0; x < this.actual_size; x++) {
+			for (int y = 0; y < this.actual_size; y++) {
+				this.tiles[x][y] = (short) Utils.parseInt(elements[3
+						+ this.actual_size * y + x]);
+			}
+		}
 	}
 
 	/** Gets the tile id at the specified value */
@@ -42,6 +63,14 @@ public class Map {
 	/** Gets the size of the map (it's a square) */
 	public int getSize() {
 		return this.actual_size;
+	}
+
+	public void setTileAt(Tile tile, int x, int y) {
+		if (x < 0 || y < 0 || x >= this.tiles.length || y >= this.tiles.length) {
+			System.out.println("Could not set tile : index out of bounds");
+			return;
+		}
+		this.tiles[x][y] = tile.getId();
 	}
 
 	/**
@@ -88,11 +117,11 @@ public class Map {
 	 *             make sure your dimension object is a square, cause the map is
 	 *             always a square.
 	 * */
-	public void resizeto(Dimension d) throws DimensinoNotSquarredException{
-		if(d.height !=d.width)
+	public void resizeTo(Dimension d) throws DimensinoNotSquarredException {
+		if (d.height != d.width)
 			throw new DimensinoNotSquarredException(d);
-		this.resizeTo((short) d.height,(short)0);
-		
+		this.resizeTo((short) d.height, (short) 0);
+
 	}
 
 	/**
@@ -102,7 +131,20 @@ public class Map {
 	 *            the new size
 	 * 
 	 * */
-	public void resizeto(short newsize) {
+	public void resizeTo(short newsize) {
 		this.resizeTo(newsize, (short) 0);
+	}
+
+	public void update() {
+
+	}
+
+	public void render(Graphics g) {
+		for (int x = 0; x < this.actual_size; x++) {
+			for (int y = 0; y < this.actual_size; y++) {
+				Tiles.getTileFromId(tiles[x][y]).renderAt(g, x * Tile.WIDTH,
+						y * Tile.HEIGHT);
+			}
+		}
 	}
 }
