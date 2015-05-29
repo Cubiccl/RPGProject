@@ -2,28 +2,37 @@ package main.graphics.states;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
+import java.util.ArrayList;
 
-import main.graphics.textures.FontBuilder;
 import main.RPGProject;
+import main.graphics.textures.FontBuilder;
 
-public class MenuState extends State {
+public abstract class MenuState extends State {
 
 	private static final Color DEFAULT = Color.WHITE, SELECTED = Color.RED,
 			BACKGROUND = Color.BLACK;
-	private static final String START = "Start this awesome game !",
-			QUIT = "Quit";
 	private static final Font FONT = new Font("Impact", Font.PLAIN, 30);
+
 	private int selected;
+	private Font font;
+	private ArrayList<MSButton> buttons;
 
 	public MenuState() {
 		this.selected = 0;
+		this.buttons = new ArrayList<MSButton>();
+		try {
+			this.font = FontBuilder.createfont("res/Ruritania.ttf");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void addButton(MSButton button) {
+		if (!this.buttons.contains(button))
+			this.buttons.add(button);
 	}
 
 	@Override
@@ -31,43 +40,34 @@ public class MenuState extends State {
 
 		int width = RPGProject.getWindow().getWidth();
 		int height = RPGProject.getWindow().getHeight();
+		int size = this.buttons.size() + 1;
 
 		g.setFont(FONT);
-		
-		
+
 		try {
-			g.setFont(main.graphics.textures.FontBuilder.createfont("res/Ruritania.ttf"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			g.setFont(this.font);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		FontMetrics metrics = g.getFontMetrics();
 
 		g.setColor(BACKGROUND);
 		g.fillRect(0, 0, width, height);
 
-		g.setColor(DEFAULT);
-		if (this.selected == 0)
-			g.setColor(SELECTED);
-		g.drawString(START, width / 2 - metrics.stringWidth(START) / 2,
-				height / 3);
+		for (int i = 0; i < size - 1; i++) {
+			g.setColor(DEFAULT);
+			if (this.selected == i)
+				g.setColor(SELECTED);
+			g.drawString(
+					this.buttons.get(i).getText(),
+					width
+							/ 2
+							- metrics
+									.stringWidth(this.buttons.get(i).getText())
+							/ 2, height * (i + 1) / size);
+		}
 
-		g.setColor(DEFAULT);
-		if (this.selected == 1)
-			g.setColor(SELECTED);
-		g.drawString(QUIT, width / 2 - metrics.stringWidth(QUIT) / 2,
-				height * 2 / 3);
 	}
 
 	@Override
@@ -80,26 +80,14 @@ public class MenuState extends State {
 				.isKeyPressedInstant(KeyEvent.VK_DOWN))
 			this.selected++;
 
-		if (this.selected > 1)
-			this.selected = 1;
+		if (this.selected >= this.buttons.size())
+			this.selected = this.buttons.size() - 1;
 		if (this.selected < 0)
 			this.selected = 0;
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_ENTER)) {
-			switch (this.selected) {
-			case 0:
-				RPGProject.getGame().setState(StateManager.GAME);
-				break;
-
-			case 1:
-				System.exit(0);
-				break;
-
-			default:
-				break;
-			}
-		}
+				.isKeyPressedInstant(KeyEvent.VK_ENTER))
+			this.buttons.get(this.selected).onClick();
 
 	}
 
