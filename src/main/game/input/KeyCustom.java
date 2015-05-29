@@ -15,7 +15,7 @@ public enum KeyCustom {
 	private KeyCustom(int keyCode) {
 	}
 
-	public void setKey(int keyCode) {
+	public void setKeyCode(int keyCode) {
 		this.keyCode = keyCode;
 	}
 
