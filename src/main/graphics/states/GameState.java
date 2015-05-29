@@ -2,6 +2,8 @@ package main.graphics.states;
 
 import java.awt.Graphics;
 
+import main.RPGProject;
+import main.game.input.KeyCustom;
 import main.game.terrain.Map;
 
 public class GameState extends State {
@@ -20,6 +22,9 @@ public class GameState extends State {
 
 	@Override
 	public void update() {
+		if (RPGProject.getGame().getKeyManager()
+				.isKeyPressedInstant(KeyCustom.escape.getKeyCode()))
+			RPGProject.getGame().setState(StateManager.MENU);
 		this.map.update();
 	}
 
