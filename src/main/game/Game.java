@@ -3,6 +3,7 @@ package main.game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import audio.BackgroundMusic;
 import main.game.input.KeyInput;
 import main.graphics.Display;
 import main.graphics.states.StateManager;
@@ -16,6 +17,9 @@ public class Game implements Runnable {
 	private KeyInput keyManager;
 	/** Manages the game states */
 	private StateManager stateManager;
+
+	/** The BGM object of the game. */
+	private BackgroundMusic BGM;
 
 	/** The thread running the game itself. */
 	private Thread thread;
@@ -87,6 +91,14 @@ public class Game implements Runnable {
 		this.frame.addKeyListener(this.keyManager);
 
 		this.stateManager = new StateManager(StateManager.MENU);
+
+		this.BGM = new BackgroundMusic();
+		Thread BGMthread = new Thread(this.BGM);
+		BGMthread.start();
+
+		// For debug only
+		BGM.setmusic("C:\\Users\\Darkxell_mc\\Desktop\\Overture.mp3");
+
 	}
 
 	/** Called to start the game */
