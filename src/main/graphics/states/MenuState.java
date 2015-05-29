@@ -24,7 +24,7 @@ public abstract class MenuState extends State {
 		this.selected = 0;
 		this.buttons = new ArrayList<MSButton>();
 		try {
-			this.font = FontBuilder.createfont("res/Ruritania.ttf");
+			this.font = FontBuilder.createfont("res/font/akbaal.ttf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
