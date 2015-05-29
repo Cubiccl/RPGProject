@@ -16,10 +16,10 @@ public enum Sprite {
 	edgeL("/textures/tiles/edgeL.png"),
 	edgeR("/textures/tiles/edgeR.png"),
 	edgeT("/textures/tiles/edgeT.png"),
-	playerDown("/textures/entity/player/charF.png"),
-	playerUp("/textures/entity/player/charB.png"),
-	playerLeft("/textures/entity/player/charL.png"),
-	playerRight("/textures/entity/player/charR.png");
+	playerDown("/textures/entity/player/playerD2.png"),
+	playerUp("/textures/entity/player/playerU2.png"),
+	playerLeft("/textures/entity/player/playerL2.png"),
+	playerRight("/textures/entity/player/playerR2.png");
 	
 	public static final int DOWN = 0, UP = 1, LEFT = 2, RIGHT = 3;
 
