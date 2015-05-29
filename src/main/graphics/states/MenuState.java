@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import main.RPGProject;
+import main.game.input.KeyCustom;
 import main.graphics.textures.FontBuilder;
 
 public abstract class MenuState extends State {
@@ -74,10 +74,10 @@ public abstract class MenuState extends State {
 	public void update() {
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_UP))
+				.isKeyPressedInstant(KeyCustom.up.getKeyCode()))
 			this.selected--;
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_DOWN))
+				.isKeyPressedInstant(KeyCustom.down.getKeyCode()))
 			this.selected++;
 
 		if (this.selected >= this.buttons.size())
@@ -86,7 +86,7 @@ public abstract class MenuState extends State {
 			this.selected = 0;
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_ENTER))
+				.isKeyPressedInstant(KeyCustom.enter.getKeyCode())) 
 			this.buttons.get(this.selected).onClick();
 
 	}

@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import main.RPGProject;
 import main.game.entity.mob.Mob;
+import main.game.input.KeyCustom;
 import main.graphics.textures.Sprite;
 
 public class Player extends Mob {
@@ -18,23 +19,23 @@ public class Player extends Mob {
 	public void update() {
 		super.update();
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_UP)) {
+				.isKeyPressedAbsolute(KeyCustom.up.getKeyCode())) {
 			this.yMotion = -1;
 			if (RPGProject.getGame().getKeyManager()
-					.isKeyPressedAbsolute(KeyEvent.VK_DOWN))
+					.isKeyPressedAbsolute(KeyCustom.down.getKeyCode()))
 				this.yMotion = 0;
 		} else if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_DOWN))
+				.isKeyPressedAbsolute(KeyCustom.down.getKeyCode()))
 			this.yMotion = 1;
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_RIGHT)) {
+				.isKeyPressedAbsolute(KeyCustom.right.getKeyCode())) {
 			this.xMotion = 1;
 			if (RPGProject.getGame().getKeyManager()
-					.isKeyPressedAbsolute(KeyEvent.VK_LEFT))
+					.isKeyPressedAbsolute(KeyCustom.left.getKeyCode()))
 				this.xMotion = 0;
 		} else if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedAbsolute(KeyEvent.VK_LEFT))
+				.isKeyPressedAbsolute(KeyCustom.left.getKeyCode()))
 			this.xMotion = -1;
 
 	}
