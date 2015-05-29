@@ -42,7 +42,7 @@ public class Item {
 	}
 
 	/** Gets the sprite of the item */
-	public Sprite getsprite() {
+	public Sprite getSprite() {
 		return this.sprite;
 	}
 
