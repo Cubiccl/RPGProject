@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import main.game.input.KeyCustom;
 import main.graphics.textures.FontBuilder;
 import main.RPGProject;
 
@@ -74,10 +75,10 @@ public class MenuState extends State {
 	public void update() {
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_UP))
+				.isKeyPressedInstant(KeyCustom.up.getKeyCode()))
 			this.selected--;
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_DOWN))
+				.isKeyPressedInstant(KeyCustom.down.getKeyCode()))
 			this.selected++;
 
 		if (this.selected > 1)
@@ -86,7 +87,7 @@ public class MenuState extends State {
 			this.selected = 0;
 
 		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyEvent.VK_ENTER)) {
+				.isKeyPressedInstant(KeyCustom.enter.getKeyCode())) {
 			switch (this.selected) {
 			case 0:
 				RPGProject.getGame().setState(StateManager.GAME);
