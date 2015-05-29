@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import main.Utils;
 import main.game.entity.Entity;
-import main.game.entity.mob.Player;
+import main.game.entity.mob.player.Player;
 import main.game.terrain.tile.Tile;
 import exeptions.DimensinoNotSquarredException;
 
