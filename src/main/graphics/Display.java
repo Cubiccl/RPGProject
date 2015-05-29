@@ -7,9 +7,10 @@ import javax.swing.JFrame;
 public class Display extends JFrame {
 	private static final long serialVersionUID = 1L;
 	/** Default size for the frame */
-	public static final int WIDTH = 600, HEIGHT = 400;
+	public static final int WIDTH = 800, HEIGHT = 600;
 
 	private Canvas canvas;
+	private GameCamera camera;
 
 	public Display() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -26,10 +27,16 @@ public class Display extends JFrame {
 
 		this.add(this.canvas);
 		this.pack();
+
+		this.camera = new GameCamera();
 	}
 
 	public Canvas getCanvas() {
 		return this.canvas;
+	}
+
+	public GameCamera getCamera() {
+		return this.camera;
 	}
 
 }

@@ -1,6 +1,7 @@
 package main.game.entity.mob;
 
 import main.game.entity.Entity;
+import main.game.terrain.Map;
 import main.graphics.textures.Sprite;
 
 public class Mob extends Entity {
@@ -31,8 +32,8 @@ public class Mob extends Entity {
 	}
 
 	@Override
-	public void update() {
-		super.update();
+	public void update(Map map) {
+		super.update(map);
 		this.manageMotion();
 		this.controlSpeed();
 		this.move();

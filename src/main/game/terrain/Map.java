@@ -4,10 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import main.RPGProject;
 import main.Utils;
 import main.game.entity.Entity;
 import main.game.entity.mob.player.Player;
 import main.game.terrain.tile.Tile;
+import main.graphics.Display;
 import exeptions.DimensinoNotSquarredException;
 
 public class Map {
@@ -20,7 +22,7 @@ public class Map {
 	private int actual_size;
 	/** The spawning Coordinates for this map */
 	private int spawnX, spawnY;
-	/**	The Entities on this map */
+	/** The Entities on this map */
 	private ArrayList<Entity> entities;
 
 	/** Default constructor of an empty map */
@@ -59,7 +61,7 @@ public class Map {
 						+ this.actual_size * y + x]);
 			}
 		}
-		
+
 		this.registerEntity(new Player(this.spawnX, this.spawnY));
 	}
 
@@ -145,29 +147,44 @@ public class Map {
 
 	public void update() {
 		for (int i = 0; i < this.entities.size(); i++) {
-			this.entities.get(i).update();
+			this.entities.get(i).update(this);
 		}
 	}
 
 	public void render(Graphics g) {
-		for (int x = 0; x < this.actual_size; x++) {
-			for (int y = 0; y < this.actual_size; y++) {
-				Tiles.getTileFromId(tiles[x][y]).renderAt(g, x * Tile.WIDTH,
-						y * Tile.HEIGHT);
+
+		float startX = RPGProject.getWindow().getCamera().getXOffset();
+		float startY = RPGProject.getWindow().getCamera().getYOffset();
+
+		float endX = (startX + Display.WIDTH) / Tile.WIDTH;
+		float endY = (startY + Display.HEIGHT) / Tile.HEIGHT;
+
+		if (endX > this.actual_size)
+			endX = this.actual_size;
+		if (endY > this.actual_size)
+			endY = this.actual_size;
+
+		for (int x = (int) Math.floor(startX / Tile.WIDTH); x < endX; x++) {
+			for (int y = (int) Math.floor(startY / Tile.HEIGHT); y < endY; y++) {
+				Tiles.getTileFromId(tiles[x][y]).renderAt(g,
+						x * Tile.WIDTH - (int) startX,
+						y * Tile.HEIGHT - (int) startY);
 			}
 		}
+
 		for (int i = 0; i < this.entities.size(); i++) {
 			this.entities.get(i).render(g);
 		}
 	}
-	
+
 	public void registerEntity(Entity entity) {
-		if (!this.entities.contains(entity)) this.entities.add(entity);
+		if (!this.entities.contains(entity))
+			this.entities.add(entity);
 	}
-	
+
 	public void removeEntity(Entity entity) {
-		if (this.entities.contains(entity)) this.entities.remove(entity);
+		if (this.entities.contains(entity))
+			this.entities.remove(entity);
 	}
-	
-	
+
 }
