@@ -1,7 +1,5 @@
 package main.game.entity.mob.player;
 
-import java.awt.event.KeyEvent;
-
 import main.RPGProject;
 import main.game.entity.mob.Mob;
 import main.game.input.KeyCustom;
@@ -9,10 +7,13 @@ import main.graphics.textures.Sprite;
 
 public class Player extends Mob {
 
+	private Inventory inventory;
+	
 	public Player(float x, float y) {
 		super(5, 1.6f, x, y, Sprite.playerDown);
 		this.setMovementSprites(Sprite.playerDown, Sprite.playerUp,
 				Sprite.playerLeft, Sprite.playerRight);
+		this.inventory = new Inventory();
 	}
 
 	@Override
