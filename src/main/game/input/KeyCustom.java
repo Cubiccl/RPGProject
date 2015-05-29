@@ -7,7 +7,8 @@ public enum KeyCustom {
 	up(KeyEvent.VK_UP),
 	down(KeyEvent.VK_DOWN),
 	right(KeyEvent.VK_RIGHT),
-	left(KeyEvent.VK_LEFT);
+	left(KeyEvent.VK_LEFT),
+	enter(KeyEvent.VK_ENTER);
 
 	private int keyCode;
 
