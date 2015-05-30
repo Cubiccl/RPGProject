@@ -47,7 +47,7 @@ public abstract class Entity {
 				this.sprite.getSprite(),
 				(int) (this.x - RPGProject.getWindow().getCamera().getXOffset()),
 				(int) (this.y - RPGProject.getWindow().getCamera().getYOffset()),
-				32, 48, null);
+				32, 32, null);
 	}
 
 	public float getX() {

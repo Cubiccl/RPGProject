@@ -8,8 +8,8 @@ import main.graphics.textures.Sprite;
 
 public class Player extends Mob {
 
-	private static final float DEFAULT_SPEED = 10.0f;
-	// TODO mettre une vitesse convenable
+	private static final float DEFAULT_SPEED = 3.0f;
+	
 	private Inventory inventory;
 
 	public Player(float x, float y) {
