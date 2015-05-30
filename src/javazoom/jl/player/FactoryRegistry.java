@@ -50,17 +50,20 @@ public class FactoryRegistry extends AudioDeviceFactory
 	}
 
 	
+	@SuppressWarnings("rawtypes")
 	protected Hashtable factories = new Hashtable();
 	
 	/**
 	 * Registers an <code>AudioDeviceFactory</code> instance
 	 * with this registry. 
 	 */
+	@SuppressWarnings("unchecked")
 	public void addFactory(AudioDeviceFactory factory)
 	{	
 		factories.put(factory.getClass(), factory);						  
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void removeFactoryType(Class cls)
 	{
 		factories.remove(cls);
@@ -101,6 +104,7 @@ public class FactoryRegistry extends AudioDeviceFactory
 	}
 	
 	
+	@SuppressWarnings("rawtypes")
 	protected AudioDeviceFactory[] getFactoriesPriority()
 	{
 		AudioDeviceFactory[] fa = null;

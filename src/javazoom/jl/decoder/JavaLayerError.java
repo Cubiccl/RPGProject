@@ -26,6 +26,7 @@ package javazoom.jl.decoder;
  * API usage errors may be handled by throwing an instance of this
  * class, as per JMF 2.0. 
  */
+@SuppressWarnings("serial")
 public class JavaLayerError extends Error
 {	
 }

@@ -44,6 +44,7 @@ public class JavaLayerUtils
 	 * @param in	The input stream to deserialize an object from.
 	 * @param cls	The expected class of the deserialized object. 
 	 */
+	@SuppressWarnings("rawtypes")
 	static public Object deserialize(InputStream in, Class cls)
 		throws IOException
 	{
@@ -107,6 +108,7 @@ public class JavaLayerUtils
 	 * @param length	The expected length of the array, or -1 if
 	 *					any length is expected.
 	 */
+	@SuppressWarnings("rawtypes")
 	static public Object deserializeArray(InputStream in, Class elemType, int length)
 		throws IOException
 	{
@@ -138,6 +140,7 @@ public class JavaLayerUtils
 		return obj;
 	}
 
+	@SuppressWarnings("rawtypes")
 	static public Object deserializeArrayResource(String name, Class elemType, int length)
 		throws IOException
 	{		
@@ -198,6 +201,7 @@ public class JavaLayerUtils
 		}
 		else
 		{
+			@SuppressWarnings("rawtypes")
 			Class cls = JavaLayerUtils.class;
 			is = cls.getResourceAsStream(name);
 		}
