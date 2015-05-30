@@ -97,7 +97,7 @@ public class Game implements Runnable {
 		BGMthread.start();
 
 		// For debug only
-		BGM.setmusic("C:\\Users\\Darkxell_mc\\Desktop\\Overture.mp3");
+		BGM.setmusic("res/audio/music/theme1.mp3");
 
 	}
 
