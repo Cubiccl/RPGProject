@@ -5,6 +5,8 @@ import java.io.FileReader;
 
 public class Utils {
 
+	public static final int DOWN = 0, UP = 1, LEFT = 2, RIGHT = 3;
+
 	public static String readFile(String path) {
 		StringBuilder builder = new StringBuilder();
 

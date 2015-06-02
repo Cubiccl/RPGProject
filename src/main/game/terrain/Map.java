@@ -146,8 +146,8 @@ public class Map {
 	}
 
 	public void update() {
-		for (int i = 0; i < this.entities.size(); i++) {
-			this.entities.get(i).update(this);
+		for (Entity entity : this.entities) {
+			entity.update(this);
 		}
 	}
 

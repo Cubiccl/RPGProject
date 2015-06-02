@@ -40,4 +40,11 @@ public class Tiles {
 		tiles[tile.getId()] = tile;
 	}
 
+	public static void update() {
+		for (Tile tile : tiles) {
+			if (tile != null)
+				tile.update();
+		}
+	}
+
 }

@@ -16,12 +16,18 @@ public enum Sprite {
 	edgeL("/textures/tiles/edgeL.png"),
 	edgeR("/textures/tiles/edgeR.png"),
 	edgeT("/textures/tiles/edgeT.png"),
-	playerDown("/textures/entity/player/playerD2.png"),
-	playerUp("/textures/entity/player/playerU2.png"),
-	playerLeft("/textures/entity/player/playerL2.png"),
-	playerRight("/textures/entity/player/playerR2.png");
-	
-	public static final int DOWN = 0, UP = 1, LEFT = 2, RIGHT = 3;
+	playerDown1("/textures/entity/player/playerD1.png"),
+	playerDown2("/textures/entity/player/playerD2.png"),
+	playerDown3("/textures/entity/player/playerD3.png"),
+	playerUp1("/textures/entity/player/playerU1.png"),
+	playerUp2("/textures/entity/player/playerU2.png"),
+	playerUp3("/textures/entity/player/playerU3.png"),
+	playerLeft1("/textures/entity/player/playerL1.png"),
+	playerLeft2("/textures/entity/player/playerL2.png"),
+	playerLeft3("/textures/entity/player/playerL3.png"),
+	playerRight1("/textures/entity/player/playerR1.png"),
+	playerRight2("/textures/entity/player/playerR2.png"),
+	playerRight3("/textures/entity/player/playerR3.png");
 
 	private BufferedImage img;
 

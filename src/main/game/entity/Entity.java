@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import main.RPGProject;
 import main.game.terrain.Map;
-import main.graphics.textures.Sprite;
+import main.graphics.textures.Animation;
 
 public abstract class Entity {
 
@@ -12,14 +12,14 @@ public abstract class Entity {
 
 	protected float x, y;
 	private int width, height;
-	private Sprite sprite;
+	private Animation animation;
 
-	public Entity(float x, float y, Sprite sprite) {
+	public Entity(float x, float y, Animation animation) {
 		this.x = x;
 		this.y = y;
 		this.width = DEFAULT_WIDTH;
 		this.height = DEFAULT_HEIGHT;
-		this.sprite = sprite;
+		this.animation = animation;
 	}
 
 	public void update(Map map) {
@@ -38,13 +38,13 @@ public abstract class Entity {
 		return this.height;
 	}
 
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 	public void render(Graphics g) {
 		g.drawImage(
-				this.sprite.getSprite(),
+				this.animation.getSprite(),
 				(int) (this.x - RPGProject.getWindow().getCamera().getXOffset()),
 				(int) (this.y - RPGProject.getWindow().getCamera().getYOffset()),
 				32, 32, null);

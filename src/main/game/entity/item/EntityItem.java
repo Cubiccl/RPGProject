@@ -2,7 +2,7 @@ package main.game.entity.item;
 
 import main.game.entity.Entity;
 import main.game.entity.mob.player.Item;
-import main.graphics.textures.Sprite;
+import main.graphics.textures.Animation;
 
 /**
  * Entities that are items, capable of being picked up by the player. Entity
@@ -14,14 +14,14 @@ public class EntityItem extends Entity {
 	private Item content;
 
 	/** Creates an entityItem using an Item and a sprite. */
-	EntityItem(Item item, float x, float y, Sprite sprite) {
-		super(x, y, sprite);
+	EntityItem(Item item, float x, float y, Animation animation) {
+		super(x, y, animation);
 		this.content = item;
 	}
 
 	/** Creates an entityItem using the item sprite */
 	public EntityItem(Item item, float x, float y) {
-		super(x, y, item.getSprite());
+		super(x, y, item.getAnimation());
 		this.content = item;
 	}
 	

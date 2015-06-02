@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import audio.BackgroundMusic;
 import main.game.input.KeyInput;
+import main.game.terrain.Tiles;
 import main.graphics.Display;
 import main.graphics.states.StateManager;
 
@@ -79,6 +80,7 @@ public class Game implements Runnable {
 	/** Called to update the game */
 	private void update() {
 		this.stateManager.update();
+		Tiles.update();
 	}
 
 	/** Initializes the game */

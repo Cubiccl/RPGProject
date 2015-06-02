@@ -1,6 +1,6 @@
 package main.game.entity.mob.player;
 
-import main.graphics.textures.Sprite;
+import main.graphics.textures.Animation;
 
 /** An item in the player inventory. Not an entity */
 public class Item {
@@ -10,22 +10,20 @@ public class Item {
 	/** The number of items in the pile */
 	private int stacksize;
 	/** The sprite of the item */
-	private Sprite sprite;
+	private Animation animation;
 
 	/** Constructs an item using an ID , a sprite and an ammount */
-	public Item(int id, Sprite sprite, int ammount) {
-		this.sprite = sprite;
+	public Item(int id, Animation animation, int ammount) {
+		this.animation = animation;
 		this.id = id;
 		this.stacksize = ammount;
 	}
 
-	/**Creates a single items of the specified sprite and ID.*/
-	public Item(int id, Sprite sprite){
-		this.id = id;
-		this.sprite = sprite;
-		this.stacksize = 1;
+	/** Creates a single items of the specified sprite and ID. */
+	public Item(int id, Animation animation) {
+		this(id, animation, 1);
 	}
-	
+
 	/** adds i items to the stack. */
 	public void addcount(int i) {
 		this.stacksize += i;
@@ -42,21 +40,21 @@ public class Item {
 	}
 
 	/** Gets the sprite of the item */
-	public Sprite getSprite() {
-		return this.sprite;
+	public Animation getAnimation() {
+		return this.animation;
 	}
 
 	/**
 	 * The hardcore way of changing the id of the item. Shouldn't really be
 	 * used.
 	 */
-	public void resetID(int id, Sprite sprite) {
-		this.sprite = sprite;
+	public void resetID(int id, Animation animation) {
+		this.animation = animation;
 		this.id = id;
 	}
-	
-	/**Gets the item ID*/
-	public int getid(){
+
+	/** Gets the item ID */
+	public int getid() {
 		return this.id;
 	}
 }
