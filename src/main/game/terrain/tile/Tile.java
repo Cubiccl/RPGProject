@@ -8,7 +8,7 @@ import main.graphics.textures.Sprite;
 
 public class Tile {
 
-	public static final int WIDTH = 32, HEIGHT = 32;
+	public static final int WIDTH = 16, HEIGHT = 16;
 
 	private short id;
 	private Animation animation;

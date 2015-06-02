@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public enum Sprite {
 
 	black("/textures/tiles/black.png"),
-	grass("/textures/tiles/grass1.png"),
+	grass(SpriteSheet.outside, 1, 3),
 	rock1("/textures/tiles/rock1.png"),
 	rock2("/textures/tiles/rock2.png"),
 	cornerBL("/textures/tiles/cornerBL.png"),
@@ -33,6 +33,10 @@ public enum Sprite {
 
 	private Sprite(String path) {
 		this.img = ImageLoader.load(path);
+	}
+
+	private Sprite(SpriteSheet sheet, int x, int y) {
+		this.img = sheet.cut(x, y);
 	}
 
 	public BufferedImage getSprite() {

@@ -14,8 +14,10 @@ import exeptions.DimensinoNotSquarredException;
 
 public class Map {
 
+	public static final byte BACKGROUND = 0, MIDGROUND = 1, FOREGROUND = 2;
+
 	/** The tiles of the map */
-	private short[][] tiles;
+	private short[][] background, midground, foreground;
 	/** The default size of the map */
 	private final int DEFAULT_SIZE = 255;
 	/** The actual size of the map */
@@ -38,12 +40,18 @@ public class Map {
 	 */
 	public Map(short tile) {
 		this.entities = new ArrayList<Entity>();
-		this.tiles = new short[DEFAULT_SIZE][DEFAULT_SIZE];
+		this.background = new short[DEFAULT_SIZE][DEFAULT_SIZE];
+		this.midground = new short[DEFAULT_SIZE][DEFAULT_SIZE];
+		this.foreground = new short[DEFAULT_SIZE][DEFAULT_SIZE];
+
 		for (int i = 0; i < DEFAULT_SIZE; i++) {
 			for (int j = 0; j < DEFAULT_SIZE; j++) {
-				this.tiles[i][j] = tile;
+				this.background[i][j] = tile;
+				this.midground[i][j] = tile;
+				this.foreground[i][j] = tile;
 			}
 		}
+
 		this.actual_size = DEFAULT_SIZE;
 		this.spawnX = 0;
 		this.spawnY = 0;
@@ -57,7 +65,7 @@ public class Map {
 		this.spawnY = Utils.parseInt(elements[2]);
 		for (int x = 0; x < this.actual_size; x++) {
 			for (int y = 0; y < this.actual_size; y++) {
-				this.tiles[x][y] = (short) Utils.parseInt(elements[3
+				this.background[x][y] = (short) Utils.parseInt(elements[3
 						+ this.actual_size * y + x]);
 			}
 		}
@@ -66,8 +74,24 @@ public class Map {
 	}
 
 	/** Gets the tile id at the specified value */
-	public short getTileAt(int x, int y) {
-		return this.tiles[x][y];
+	public short getTileAt(byte layer, int x, int y) {
+
+		if (x < 0 || x > this.actual_size || y < 0 || y > this.actual_size)
+			return 0;
+
+		switch (layer) {
+		case BACKGROUND:
+			return this.background[x][y];
+
+		case MIDGROUND:
+			return this.midground[x][y];
+
+		case FOREGROUND:
+			return this.foreground[x][y];
+
+		default:
+			return 0;
+		}
 	}
 
 	/** Gets the size of the map (it's a square) */
@@ -75,12 +99,28 @@ public class Map {
 		return this.actual_size;
 	}
 
-	public void setTileAt(Tile tile, int x, int y) {
-		if (x < 0 || y < 0 || x >= this.tiles.length || y >= this.tiles.length) {
+	public void setTileAt(Tile tile, byte layer, int x, int y) {
+		if (x < 0 || y < 0 || x >= this.background.length
+				|| y >= this.background.length) {
 			System.out.println("Could not set tile : index out of bounds");
 			return;
 		}
-		this.tiles[x][y] = tile.getId();
+		switch (layer) {
+		case BACKGROUND:
+			this.background[x][y] = tile.getId();
+			break;
+
+		case MIDGROUND:
+			this.midground[x][y] = tile.getId();
+			break;
+
+		case FOREGROUND:
+			this.foreground[x][y] = tile.getId();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -107,17 +147,17 @@ public class Map {
 				}
 			for (int i = 0; i < this.actual_size; i++) {
 				for (int j = 0; j < this.actual_size; j++) {
-					newgrid[i][j] = this.tiles[i][j];
+					newgrid[i][j] = this.background[i][j];
 				}
 			}
 		} else {
 			for (int i = 0; i < newsize; i++) {
 				for (int j = 0; j < newsize; j++) {
-					newgrid[i][j] = this.tiles[i][j];
+					newgrid[i][j] = this.background[i][j];
 				}
 			}
 		}
-		this.tiles = newgrid;
+		this.background = newgrid;
 	}
 
 	/**
@@ -166,14 +206,28 @@ public class Map {
 
 		for (int x = (int) Math.floor(startX / Tile.WIDTH); x < endX; x++) {
 			for (int y = (int) Math.floor(startY / Tile.HEIGHT); y < endY; y++) {
-				Tiles.getTileFromId(tiles[x][y]).renderAt(g,
+				Tiles.getTileFromId(this.background[x][y]).renderAt(g,
 						x * Tile.WIDTH - (int) startX,
 						y * Tile.HEIGHT - (int) startY);
+
+				if (this.midground[x][y] != 0)
+					Tiles.getTileFromId(this.midground[x][y]).renderAt(g,
+							x * Tile.WIDTH - (int) startX,
+							y * Tile.HEIGHT - (int) startY);
 			}
 		}
 
 		for (int i = 0; i < this.entities.size(); i++) {
 			this.entities.get(i).render(g);
+		}
+
+		for (int x = (int) Math.floor(startX / Tile.WIDTH); x < endX; x++) {
+			for (int y = (int) Math.floor(startY / Tile.HEIGHT); y < endY; y++) {
+				if (this.foreground[x][y] != 0)
+					Tiles.getTileFromId(this.foreground[x][y]).renderAt(g,
+							x * Tile.WIDTH - (int) startX,
+							y * Tile.HEIGHT - (int) startY);
+			}
 		}
 	}
 
@@ -192,8 +246,13 @@ public class Map {
 		if (xFloor < 0 || xFloor >= this.actual_size || yFloor < 0
 				|| yFloor >= this.actual_size)
 			return false;
-		
-		return Tiles.getTileFromId(this.getTileAt(xFloor, yFloor)).isSolid();
+
+		return Tiles.getTileFromId(this.getTileAt(BACKGROUND, xFloor, yFloor))
+				.isSolid()
+				|| Tiles.getTileFromId(
+						this.getTileAt(MIDGROUND, xFloor, yFloor)).isSolid()
+				|| Tiles.getTileFromId(
+						this.getTileAt(FOREGROUND, xFloor, yFloor)).isSolid();
 	}
 
 }
