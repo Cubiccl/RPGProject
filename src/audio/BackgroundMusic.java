@@ -19,12 +19,8 @@ public class BackgroundMusic implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			
-			System.out.println("-");
-			//DO NOT REMOVE!
-			//TODO remplace this by a wait().
-			
-			
+			// Tries 10 times a second
+			main.Utils.wait(100);
 			if (!this.ischanging) {
 				try {
 					if (this.currentplayer.isComplete()) {
