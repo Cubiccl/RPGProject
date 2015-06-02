@@ -43,4 +43,8 @@ public class Utils {
 			;
 	}
 
+	public static int floor(float num) {
+		return (int) Math.floor(num);
+	}
+
 }

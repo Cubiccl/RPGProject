@@ -13,21 +13,21 @@ public class Tiles {
 	public static Tile grassRock = new TileObject((short) 100, Sprite.grass,
 			Sprite.rock2, true);
 	public static Tile cornerBL = new TileObject((short) 106, Sprite.grass,
-			Sprite.cornerBL, false);
+			Sprite.cornerBL, true);
 	public static Tile cornerBR = new TileObject((short) 104, Sprite.grass,
-			Sprite.cornerBR, false);
+			Sprite.cornerBR, true);
 	public static Tile cornerTL = new TileObject((short) 108, Sprite.grass,
-			Sprite.cornerTL, false);
+			Sprite.cornerTL, true);
 	public static Tile cornerTR = new TileObject((short) 102, Sprite.grass,
-			Sprite.cornerTR, false);
+			Sprite.cornerTR, true);
 	public static Tile edgeL = new TileObject((short) 107, Sprite.grass,
-			Sprite.edgeL, false);
+			Sprite.edgeL, true);
 	public static Tile edgeR = new TileObject((short) 103, Sprite.grass,
-			Sprite.edgeR, false);
+			Sprite.edgeR, true);
 	public static Tile edgeT = new TileObject((short) 101, Sprite.grass,
-			Sprite.edgeT, false);
+			Sprite.edgeT, true);
 	public static Tile edgeB = new TileObject((short) 105, Sprite.grass,
-			Sprite.edgeB, false);
+			Sprite.edgeB, true);
 
 	public static Tile getTileFromId(short id) {
 		if (tiles[id] != null)

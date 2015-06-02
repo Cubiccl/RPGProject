@@ -51,7 +51,7 @@ public class Mob extends Entity {
 		super.update(map);
 		this.manageMotion();
 		this.controlSpeed();
-		this.move();
+		this.move(map);
 	}
 
 	private void controlSpeed() {
@@ -115,9 +115,18 @@ public class Mob extends Entity {
 		return this.health;
 	}
 
-	public void move() {
-		this.x += this.xMotion * this.speed * this.speedController;
-		this.y += this.yMotion * this.speed * this.speedController;
-	}
+	public void move(Map map) {
+		float nextX = this.x + this.xMotion * this.speed * this.speedController;
+		float nextY = this.y + this.yMotion * this.speed * this.speedController;
 
+		if (!(map.isSolid(nextX, this.y) || map.isSolid(nextX + 1, this.y)
+				|| map.isSolid(nextX, this.y + 1) || map.isSolid(nextX + 1,
+				this.y + 1)))
+			this.x = nextX;
+
+		if (!(map.isSolid(this.x, nextY) || map.isSolid(this.x + 1, nextY)
+				|| map.isSolid(this.x, nextY + 1) || map.isSolid(this.x + 1,
+				nextY + 1)))
+			this.y = nextY;
+	}
 }

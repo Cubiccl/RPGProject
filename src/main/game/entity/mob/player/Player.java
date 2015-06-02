@@ -9,7 +9,7 @@ import main.graphics.textures.Sprite;
 
 public class Player extends Mob {
 
-	private static final float DEFAULT_SPEED = 3.0f;
+	private static final float DEFAULT_SPEED = 0.1f;
 
 	private Inventory inventory;
 

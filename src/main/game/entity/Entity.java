@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import main.RPGProject;
 import main.game.terrain.Map;
+import main.game.terrain.tile.Tile;
 import main.graphics.textures.Animation;
 
 public abstract class Entity {
@@ -43,11 +44,11 @@ public abstract class Entity {
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(
-				this.animation.getSprite(),
-				(int) (this.x - RPGProject.getWindow().getCamera().getXOffset()),
-				(int) (this.y - RPGProject.getWindow().getCamera().getYOffset()),
-				32, 32, null);
+		g.drawImage(this.animation.getSprite(),
+				(int) (this.x * Tile.WIDTH - RPGProject.getWindow().getCamera()
+						.getXOffset()),
+				(int) (this.y * Tile.HEIGHT - RPGProject.getWindow()
+						.getCamera().getYOffset()), 32, 32, null);
 	}
 
 	public float getX() {

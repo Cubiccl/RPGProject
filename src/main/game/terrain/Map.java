@@ -187,4 +187,13 @@ public class Map {
 			this.entities.remove(entity);
 	}
 
+	public boolean isSolid(float x, float y) {
+		int xFloor = Utils.floor(x), yFloor = Utils.floor(y);
+		if (xFloor < 0 || xFloor >= this.actual_size || yFloor < 0
+				|| yFloor >= this.actual_size)
+			return false;
+		
+		return Tiles.getTileFromId(this.getTileAt(xFloor, yFloor)).isSolid();
+	}
+
 }

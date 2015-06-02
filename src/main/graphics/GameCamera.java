@@ -14,10 +14,10 @@ public class GameCamera {
 	}
 
 	public void centerOnEntity(Entity entity, Map map) {
-		this.xOffset = entity.getX() - Display.WIDTH / 2 + entity.getWidth()
-				/ 2;
-		this.yOffset = entity.getY() - Display.HEIGHT / 2 + entity.getHeight()
-				/ 2;
+		this.xOffset = entity.getX() * Tile.WIDTH - Display.WIDTH / 2
+				+ entity.getWidth() / 2;
+		this.yOffset = entity.getY() * Tile.HEIGHT - Display.HEIGHT / 2
+				+ entity.getHeight() / 2;
 
 		float xMax = map.getSize() * Tile.WIDTH - Display.WIDTH;
 		float yMax = map.getSize() * Tile.HEIGHT - Display.HEIGHT;
