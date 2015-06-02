@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import audio.BackgroundMusic;
+import audio.SoundPlayer;
 import main.game.input.KeyInput;
 import main.game.terrain.Tiles;
 import main.graphics.Display;
@@ -20,7 +21,9 @@ public class Game implements Runnable {
 	private StateManager stateManager;
 
 	/** The BGM object of the game. */
-	private BackgroundMusic BGM;
+	public BackgroundMusic BGM;
+	/** An object to play sounds. */
+	public SoundPlayer SP;
 
 	/** The thread running the game itself. */
 	private Thread thread;
@@ -97,9 +100,12 @@ public class Game implements Runnable {
 		this.BGM = new BackgroundMusic();
 		Thread BGMthread = new Thread(this.BGM);
 		BGMthread.start();
-
 		// For debug only
 		BGM.setmusic("res/audio/music/theme1.mp3");
+		
+		this.SP = new SoundPlayer();
+		Thread SPthread = new Thread(this.SP);
+		SPthread.start();
 
 	}
 
