@@ -12,7 +12,7 @@ public class GameState extends State {
 
 	public GameState() {
 		this.map = new Map();
-		this.map.initFrom("res/maps/1-1.map");
+		this.map.initFrom("res/maps/mapTest.map");
 	}
 
 	@Override

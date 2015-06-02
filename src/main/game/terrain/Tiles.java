@@ -30,6 +30,8 @@ public class Tiles {
 			Sprite.edgeB, true);
 
 	public static Tile getTileFromId(short id) {
+		if (id >= tiles.length)
+			return black;
 		if (tiles[id] != null)
 			return tiles[id];
 		else

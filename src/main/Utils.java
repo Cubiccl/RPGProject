@@ -47,4 +47,30 @@ public class Utils {
 		return (int) Math.floor(num);
 	}
 
+	public static String[] convertMapData(String text) {
+		String[] data = text.split("\\s+");
+		String[] mapData = new String[] { "", "", "", "" };
+		int index = 0;
+		boolean foundData = false;
+
+		for (String element : data) {
+			if (element.startsWith("width="))
+				mapData[0] = element.substring("width=".length()) + " 25 25";
+
+			if (element.startsWith("data=")) {
+				index++;
+				foundData = true;
+				continue;
+			}
+
+			if (element.equals("[layer]"))
+				foundData = false;
+
+			if (foundData) {
+				mapData[index] += element.replaceAll(",", " ");
+			}
+		}
+
+		return mapData;
+	}
 }

@@ -58,15 +58,24 @@ public class Map {
 	}
 
 	public void initFrom(String filePath) {
-		String data = Utils.readFile(filePath);
-		String[] elements = data.split("\\s+");
-		this.resizeTo((short) Utils.parseInt(elements[0]));
-		this.spawnX = Utils.parseInt(elements[1]);
-		this.spawnY = Utils.parseInt(elements[2]);
+		String[] data = Utils.convertMapData(Utils.readFile(filePath));
+		this.resizeTo((short) Utils.parseInt(data[0].split(" ")[0]));
+		this.spawnX = Utils.parseInt(data[0].split(" ")[1]);
+		this.spawnY = Utils.parseInt(data[0].split(" ")[2]);
+
+		String[] back = data[1].split("\\s+");
+		String[] mid = data[2].split("\\s+");
+		String[] fore = data[3].split("\\s+");
 		for (int x = 0; x < this.actual_size; x++) {
 			for (int y = 0; y < this.actual_size; y++) {
-				this.background[x][y] = (short) Utils.parseInt(elements[3
-						+ this.actual_size * y + x]);
+				this.background[x][y] = (short) Utils
+						.parseInt(back[this.actual_size * y + x]);
+
+				this.midground[x][y] = (short) Utils
+						.parseInt(mid[this.actual_size * y + x]);
+
+				this.foreground[x][y] = (short) Utils
+						.parseInt(fore[this.actual_size * y + x]);
 			}
 		}
 
