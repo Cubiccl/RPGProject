@@ -14,4 +14,8 @@ public abstract class MSButton {
 
   public abstract void onClick();
 
+  public void setText(String text) {
+    this.text = text;
+  }
+
 }

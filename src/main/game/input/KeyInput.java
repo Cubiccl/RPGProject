@@ -8,14 +8,19 @@ public class KeyInput implements KeyListener {
   private boolean[] keyPressedAbsolute;
   /** True if the key has been pressed and not processed */
   private byte[] keyPressedInstant;
+  private boolean isEnabled;
 
   public KeyInput() {
     this.keyPressedAbsolute = new boolean[256];
     this.keyPressedInstant = new byte[256];
+    this.isEnabled = true;
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
+    if (!this.isEnabled)
+      return;
+
     this.keyPressedAbsolute[e.getKeyCode()] = true;
     if (this.keyPressedInstant[e.getKeyCode()] == 0)
       this.keyPressedInstant[e.getKeyCode()] = 2;
@@ -23,6 +28,9 @@ public class KeyInput implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
+    if (!this.isEnabled)
+      return;
+
     this.keyPressedAbsolute[e.getKeyCode()] = false;
     this.keyPressedInstant[e.getKeyCode()] = 0;
   }
@@ -36,6 +44,9 @@ public class KeyInput implements KeyListener {
    * @param keyCode - The code of the Key
    */
   public boolean isKeyPressedAbsolute(int keyCode) {
+    if (!this.isEnabled)
+      return false;
+
     if (keyCode >= 0 && keyCode < 256)
       return this.keyPressedAbsolute[keyCode];
     return false;
@@ -47,6 +58,9 @@ public class KeyInput implements KeyListener {
    * @param keyCode - The code of the Key
    */
   public boolean isKeyPressedInstant(int keyCode) {
+    if (!this.isEnabled)
+      return false;
+
     if (keyCode >= 0 && keyCode < 256) {
       boolean pressed = this.keyPressedInstant[keyCode] == 2;
       if (pressed)
@@ -54,6 +68,17 @@ public class KeyInput implements KeyListener {
       return pressed;
     }
     return false;
+  }
+
+  public void setEnabled(boolean enable) {
+    this.isEnabled = enable;
+
+    if (!this.isEnabled) {
+      for (int i = 0; i < this.keyPressedInstant.length; i++) {
+        this.keyPressedAbsolute[i] = false;
+        this.keyPressedInstant[i] = 0;
+      }
+    }
   }
 
 }

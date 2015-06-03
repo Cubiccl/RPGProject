@@ -13,7 +13,7 @@ import main.graphics.textures.FontBuilder;
 public abstract class MenuState extends State {
 
   private static final Color DEFAULT = Color.WHITE, SELECTED = Color.RED, BACKGROUND = Color.BLACK;
-  private static final Font FONT = new Font("Impact", Font.PLAIN, 30);
+  protected static final Font FONT = new Font("Impact", Font.PLAIN, 30);
 
   private int selected;
   private Font font;
@@ -32,6 +32,10 @@ public abstract class MenuState extends State {
   public void addButton(MSButton button) {
     if (!this.buttons.contains(button))
       this.buttons.add(button);
+  }
+
+  protected ArrayList<MSButton> getButtons() {
+    return this.buttons;
   }
 
   @Override
