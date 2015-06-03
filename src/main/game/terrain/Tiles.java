@@ -1,5 +1,6 @@
 package main.game.terrain;
 
+import main.Utils;
 import main.game.terrain.tile.Tile;
 import main.graphics.textures.Sprite;
 
@@ -36,6 +37,11 @@ public class Tiles {
 			@SuppressWarnings("unused")
 			Tile tile = new Tile(index, sprite);
 			index++;
+		}
+
+		String solids = Utils.readFile("res/data/solid.til");
+		for (String id : solids.split("\\s+")) {
+			getTileFromId((short) Utils.parseInt(id)).setSolid(true);
 		}
 	}
 

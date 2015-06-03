@@ -46,9 +46,11 @@ public abstract class Entity {
 	public void render(Graphics g) {
 		g.drawImage(this.animation.getSprite(),
 				(int) (this.x * Tile.WIDTH - RPGProject.getWindow().getCamera()
-						.getXOffset()),
+						.getXOffset())
+						- this.getWidth() / 4,
 				(int) (this.y * Tile.HEIGHT - RPGProject.getWindow()
-						.getCamera().getYOffset()), 32, 32, null);
+						.getCamera().getYOffset())
+						- this.getHeight() / 4, 32, 32, null);
 	}
 
 	public float getX() {

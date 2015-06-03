@@ -53,4 +53,8 @@ public class Tile {
 		return this.isSolid;
 	}
 
+	public void setSolid(boolean isSolid) {
+		this.isSolid = isSolid;
+	}
+
 }

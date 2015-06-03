@@ -259,9 +259,7 @@ public class Map {
 		return Tiles.getTileFromId(this.getTileAt(BACKGROUND, xFloor, yFloor))
 				.isSolid()
 				|| Tiles.getTileFromId(
-						this.getTileAt(MIDGROUND, xFloor, yFloor)).isSolid()
-				|| Tiles.getTileFromId(
-						this.getTileAt(FOREGROUND, xFloor, yFloor)).isSolid();
+						this.getTileAt(MIDGROUND, xFloor, yFloor)).isSolid();
 	}
 
 }
