@@ -12,139 +12,138 @@ import audio.BackgroundMusic;
 import audio.SoundPlayer;
 
 public class Game implements Runnable {
-	/** The JFrame to display the game */
-	private Display frame;
-	/** The current FPS the game displays */
-	public int currentFPS;
-	/** Manages the keyboard inputs */
-	private KeyInput keyManager;
-	/** Manages the game states */
-	private StateManager stateManager;
+  /** The JFrame to display the game */
+  private Display frame;
+  /** The current FPS the game displays */
+  public int currentFPS;
+  /** Manages the keyboard inputs */
+  private KeyInput keyManager;
+  /** Manages the game states */
+  private StateManager stateManager;
 
-	/** The BGM object of the game. */
-	public BackgroundMusic BGM;
-	/** An object to play sounds. */
-	public SoundPlayer SP;
+  /** The BGM object of the game. */
+  public BackgroundMusic BGM;
+  /** An object to play sounds. */
+  public SoundPlayer SP;
 
-	/** The thread running the game itself. */
-	private Thread thread;
-	/** True if the game is running. */
-	private boolean isRunning;
+  /** The thread running the game itself. */
+  private Thread thread;
+  /** True if the game is running. */
+  private boolean isRunning;
 
-	public Game() {
-		this.isRunning = false;
-	}
+  public Game() {
+    this.isRunning = false;
+  }
 
-	/** Called to run the game */
-	@Override
-	public void run() {
-		this.init();
+  /** Called to run the game */
+  @Override
+  public void run() {
+    this.init();
 
-		int fps = 60, ticks = 0;
-		double timePerTick = 1000000000 / fps, delta = 0;
-		long now, lastTime = System.nanoTime(), timer = 0;
+    int fps = 60, ticks = 0;
+    double timePerTick = 1000000000 / fps, delta = 0;
+    long now, lastTime = System.nanoTime(), timer = 0;
 
-		while (this.isRunning) {
-			now = System.nanoTime();
-			delta += (now - lastTime) / timePerTick;
-			timer += now - lastTime;
-			lastTime = now;
+    while (this.isRunning) {
+      now = System.nanoTime();
+      delta += (now - lastTime) / timePerTick;
+      timer += now - lastTime;
+      lastTime = now;
 
-			if (delta >= 1) {
-				this.update();
-				this.render();
-				delta--;
-				ticks++;
-			}
+      if (delta >= 1) {
+        this.update();
+        this.render();
+        delta--;
+        ticks++;
+      }
 
-			if (timer >= 1000000000) {
-				System.out.println("FPS : " + ticks);
-				this.currentFPS = ticks;
-				ticks = 0;
-				timer = 0;
-			}
-		}
+      if (timer >= 1000000000) {
+        System.out.println("FPS : " + ticks);
+        this.currentFPS = ticks;
+        ticks = 0;
+        timer = 0;
+      }
+    }
 
-		this.stop();
-	}
+    this.stop();
+  }
 
-	/** Called to draw the game onto the screen */
-	private void render() {
-		BufferStrategy bs = this.frame.getCanvas().getBufferStrategy();
-		Graphics g = bs.getDrawGraphics();
-		g.clearRect(0, 0, this.frame.getCanvas().getWidth(), this.frame
-				.getCanvas().getWidth());
+  /** Called to draw the game onto the screen */
+  private void render() {
+    BufferStrategy bs = this.frame.getCanvas().getBufferStrategy();
+    Graphics g = bs.getDrawGraphics();
+    g.clearRect(0, 0, this.frame.getCanvas().getWidth(), this.frame.getCanvas().getWidth());
 
-		this.stateManager.render(g);
+    this.stateManager.render(g);
 
-		bs.show();
-		g.dispose();
-	}
+    bs.show();
+    g.dispose();
+  }
 
-	/** Called to update the game */
-	private void update() {
-		this.stateManager.update();
-		Tiles.update();
-	}
+  /** Called to update the game */
+  private void update() {
+    this.stateManager.update();
+    Tiles.update();
+  }
 
-	/** Initializes the game */
-	private void init() {
-		this.frame = new Display();
-		this.frame.setVisible(true);
-		this.frame.getCanvas().createBufferStrategy(3);
+  /** Initializes the game */
+  private void init() {
+    this.frame = new Display();
+    this.frame.setVisible(true);
+    this.frame.getCanvas().createBufferStrategy(3);
 
-		this.keyManager = new KeyInput();
-		this.frame.addKeyListener(this.keyManager);
+    this.keyManager = new KeyInput();
+    this.frame.addKeyListener(this.keyManager);
 
-		this.stateManager = new StateManager(StateManager.MENU);
+    this.stateManager = new StateManager(StateManager.MENU);
 
-		this.BGM = new BackgroundMusic();
-		Thread BGMthread = new Thread(this.BGM);
-		BGMthread.start();
-		// For debug only
-		BGM.setmusic("res/audio/music/theme1.mp3");
-		
-		this.SP = new SoundPlayer();
-		Thread SPthread = new Thread(this.SP);
-		SPthread.start();
+    this.BGM = new BackgroundMusic();
+    Thread BGMthread = new Thread(this.BGM);
+    BGMthread.start();
+    // For debug only
+    BGM.setmusic("res/audio/music/theme1.mp3");
 
-		SpriteSheet.init();
-		Tiles.init();
+    this.SP = new SoundPlayer();
+    Thread SPthread = new Thread(this.SP);
+    SPthread.start();
 
-	}
+    SpriteSheet.init();
+    Tiles.init();
 
-	/** Called to start the game */
-	public void start() {
-		if (this.isRunning)
-			return;
+  }
 
-		this.isRunning = true;
-		this.thread = new Thread(this);
-		this.thread.start();
-	}
+  /** Called to start the game */
+  public void start() {
+    if (this.isRunning)
+      return;
 
-	/** Called to stop the game */
-	public void stop() {
-		if (!this.isRunning)
-			return;
-		this.isRunning = false;
-		try {
-			this.thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    this.isRunning = true;
+    this.thread = new Thread(this);
+    this.thread.start();
+  }
 
-	public Display getWindow() {
-		return this.frame;
-	}
+  /** Called to stop the game */
+  public void stop() {
+    if (!this.isRunning)
+      return;
+    this.isRunning = false;
+    try {
+      this.thread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 
-	public KeyInput getKeyManager() {
-		return this.keyManager;
-	}
+  public Display getWindow() {
+    return this.frame;
+  }
 
-	public void setState(byte state) {
-		this.stateManager.setState(state);
-	}
+  public KeyInput getKeyManager() {
+    return this.keyManager;
+  }
+
+  public void setState(byte state) {
+    this.stateManager.setState(state);
+  }
 
 }

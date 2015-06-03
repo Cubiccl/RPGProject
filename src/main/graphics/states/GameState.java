@@ -8,24 +8,23 @@ import main.game.terrain.Map;
 
 public class GameState extends State {
 
-	private Map map;
+  private Map map;
 
-	public GameState() {
-		this.map = new Map();
-		this.map.initFrom("res/maps/mapTest.map");
-	}
+  public GameState() {
+    this.map = new Map();
+    this.map.initFrom("res/maps/mapTest.map");
+  }
 
-	@Override
-	public void render(Graphics g) {
-		this.map.render(g);
-	}
+  @Override
+  public void render(Graphics g) {
+    this.map.render(g);
+  }
 
-	@Override
-	public void update() {
-		if (RPGProject.getGame().getKeyManager()
-				.isKeyPressedInstant(KeyCustom.escape.getKeyCode()))
-			RPGProject.getGame().setState(StateManager.MENU);
-		this.map.update();
-	}
+  @Override
+  public void update() {
+    if (RPGProject.getGame().getKeyManager().isKeyPressedInstant(KeyCustom.escape.getKeyCode()))
+      RPGProject.getGame().setState(StateManager.MENU);
+    this.map.update();
+  }
 
 }
