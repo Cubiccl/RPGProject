@@ -1,9 +1,13 @@
 package main.game.entity.mob.player;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import main.RPGProject;
 import main.game.entity.mob.Mob;
 import main.game.input.KeyCustom;
 import main.game.terrain.Map;
+import main.game.terrain.tile.Tile;
 import main.graphics.textures.Animation;
 import main.graphics.textures.Sprite;
 
@@ -52,4 +56,12 @@ public class Player extends Mob {
         .isKeyPressedAbsolute(KeyCustom.left.getKeyCode()))
       this.xMotion = -1;
   }
+
+  public void render(Graphics g) {
+    super.render(g);
+    g.setColor(Color.RED);
+    g.fillRect(30, 30, 200, 10);
+    g.drawImage(Sprite.healthbar.getSprite(), 10, 10, 299, 60, null);
+  }
+
 }

@@ -19,7 +19,8 @@ public class Sprite {
       "/textures/entity/player/playerL3.png"), playerRight1 = new Sprite(
       "/textures/entity/player/playerR1.png"), playerRight2 = new Sprite(
       "/textures/entity/player/playerR2.png"), playerRight3 = new Sprite(
-      "/textures/entity/player/playerR3.png");
+      "/textures/entity/player/playerR3.png"), healthbar = new Sprite(
+      "/textures/entity/player/healthbar.png");
 
   private BufferedImage img;
 
