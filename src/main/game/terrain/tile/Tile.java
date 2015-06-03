@@ -14,16 +14,16 @@ public class Tile {
 	private Animation animation;
 	private boolean isSolid;
 
-	public Tile(short id, Animation animation, boolean isSolid) {
+	public Tile(short id, Animation animation) {
 		this.id = id;
 		this.animation = animation;
-		this.isSolid = isSolid;
+		this.isSolid = false;
 
 		Tiles.register(this);
 	}
 
-	public Tile(short id, Sprite sprite, boolean isSolid) {
-		this(id, new Animation(sprite), isSolid);
+	public Tile(short id, Sprite sprite) {
+		this(id, new Animation(sprite));
 	}
 
 	/** Returns this Tile's ID */

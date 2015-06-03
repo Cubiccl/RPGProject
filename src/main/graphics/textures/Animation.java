@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Animation {
 
 	public static final int DEFAULT_SPEED = 10;
-	
+
 	private int speed, currentTick, index;
 	private Sprite[] sprites;
 

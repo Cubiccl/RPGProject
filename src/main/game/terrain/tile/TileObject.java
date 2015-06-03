@@ -10,15 +10,13 @@ public class TileObject extends Tile {
 	/** The foreground Sprite */
 	private Animation foreground;
 
-	public TileObject(short id, Animation background, Animation foreground,
-			boolean isSolid) {
-		super(id, background, isSolid);
+	public TileObject(short id, Animation background, Animation foreground) {
+		super(id, background);
 		this.foreground = foreground;
 	}
 
-	public TileObject(short id, Sprite background, Sprite foreground,
-			boolean isSolid) {
-		this(id, new Animation(background), new Animation(foreground), isSolid);
+	public TileObject(short id, Sprite background, Sprite foreground) {
+		this(id, new Animation(background), new Animation(foreground));
 	}
 
 	public void update() {

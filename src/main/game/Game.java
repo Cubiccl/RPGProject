@@ -3,12 +3,13 @@ package main.game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import audio.BackgroundMusic;
-import audio.SoundPlayer;
 import main.game.input.KeyInput;
 import main.game.terrain.Tiles;
 import main.graphics.Display;
 import main.graphics.states.StateManager;
+import main.graphics.textures.SpriteSheet;
+import audio.BackgroundMusic;
+import audio.SoundPlayer;
 
 public class Game implements Runnable {
 	/** The JFrame to display the game */
@@ -106,6 +107,9 @@ public class Game implements Runnable {
 		this.SP = new SoundPlayer();
 		Thread SPthread = new Thread(this.SP);
 		SPthread.start();
+
+		SpriteSheet.init();
+		Tiles.init();
 
 	}
 
