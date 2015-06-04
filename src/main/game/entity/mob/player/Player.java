@@ -59,9 +59,9 @@ public class Player extends Mob {
 
   public void render(Graphics g) {
     super.render(g);
-    g.setColor(Color.RED);
-    g.fillRect(30, 30, 200, 10);
-    g.drawImage(Sprite.healthbar.getSprite(), 10, 10, 299, 60, null);
+    g.setColor(new Color(0,220,31));
+    g.fillRect(65, 36, 135, 20);
+    g.drawImage(Sprite.healthbar.getSprite(), 9, 9, 300, 72, null);
   }
 
 }
